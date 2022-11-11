@@ -2,7 +2,7 @@ import axios from 'axios';
 import Image from 'next/image';
 import { type } from 'os';
 
-interface IData {
+interface IDataItems {
   id: number,
   pictures: string[],
   title: string,
@@ -19,11 +19,11 @@ interface IData {
   salary: string
 }
 
-interface Tqe {
-  data: IData[]
+interface IData {
+  data: IDataItems[]
 }
 
-export default function Home({ data }: Tqe) {
+export default function Home({ data }: IData) {
 //   new google.maps.Geocoder().geocode({
 //   'latLng': new google.maps.LatLng(12.9715987, 77.594562699)
 // }, function(results, status) {
@@ -35,7 +35,7 @@ export default function Home({ data }: Tqe) {
     <main>
       <section className='bg-[#E6E9F2] py-7 px-64'>
          <ul>
-      {data.map(({id, pictures, title, name, address, location, benefits, phone}: IData) => {
+      {data.map(({id, pictures, title, name, address, location, benefits, phone}: IDataItems) => {
         return <li key={id} className="bg-white mb-2 px-4 py-6 flex items-center">
           <div className='mr-6'>
                <Image src={pictures[0]} alt="img" width={85} height={85} className="rounded-[50%] h-[85px]" priority />

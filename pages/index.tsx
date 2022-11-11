@@ -24,7 +24,6 @@ interface Tqe {
 }
 
 export default function Home({ data }: Tqe) {
-  console.log(data);
 //   new google.maps.Geocoder().geocode({
 //   'latLng': new google.maps.LatLng(12.9715987, 77.594562699)
 // }, function(results, status) {

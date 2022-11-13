@@ -42,6 +42,10 @@ a {
   @apply float-right px-[2px] cursor-pointer text-[#000] before:content-["\2606"];
 }
 
+.star-rating__ico--active {
+  @apply float-right px-[2px] cursor-pointer text-[#000] before:content-["\2605"];
+}
+
 .star-rating__input {
   @apply hidden;
 }

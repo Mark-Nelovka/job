@@ -1,5 +1,5 @@
 export interface IDataItems {
-  id: number;
+  id: string;
   pictures: string[];
   title: string;
   name: string;

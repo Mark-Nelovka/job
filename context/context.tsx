@@ -1,4 +1,10 @@
-import React, { createContext, ReactNode, useContext, useState } from "react";
+import React, {
+  createContext,
+  ReactNode,
+  useContext,
+  useEffect,
+  useState,
+} from "react";
 import { IDataItems, IData } from "../interfaces/dataItems";
 
 type Props = {
@@ -19,41 +25,38 @@ type authContextType = {
   items: IDataItems[] | undefined;
   changeData: (data: IData) => void;
   activeStar: IStarState[];
-  changeActiveStar: ({ id, title }: propsItem) => void;
+  changeRating: ({ id, title }: propsItem) => void;
 };
-
-const defaultStarState: IStarState[] = [
-  {
-    id: "2",
-    title: "2",
-  },
-];
 
 const authContextDefaultValues: authContextType = {
   items: [],
   changeData: () => [],
-  activeStar: [
-    {
-      id: "2",
-      title: "2",
-    },
-  ],
-  changeActiveStar: () => [],
+  activeStar: [],
+  changeRating: () => [],
 };
 
 const Context = createContext<authContextType>(authContextDefaultValues);
 
 export function ThemeProvider({ children }: Props) {
   const [items, setData] = useState<IDataItems[]>();
-  const [activeStar, setActiveStar] = useState<IStarState[]>(defaultStarState);
+  const [activeStar, setActiveStar] = useState<IStarState[]>([]);
+
+  useEffect(() => {
+    const d: IStarState[] = JSON.parse(localStorage.getItem("rating")!)
+      ? JSON.parse(localStorage.getItem("rating")!)
+      : [];
+    setActiveStar(d);
+    console.log("effect context");
+  }, []);
 
   const changeData = ({ data }: IData) => {
     setData(data);
   };
 
-  const changeActiveStar = ({ id, title }: propsItem) => {
+  const changeRating = ({ id, title }: propsItem) => {
     setActiveStar((prevState): IStarState[] => {
       if (prevState.length === 0) {
+        localStorage.setItem("rating", JSON.stringify([{ id, title }]));
         return [
           {
             id,
@@ -61,8 +64,15 @@ export function ThemeProvider({ children }: Props) {
           },
         ];
       }
+      const rating: IDataItems[] = JSON.parse(
+        localStorage.getItem("rating")!
+      ).filter((el: IDataItems) => el.id !== id);
+      localStorage.setItem(
+        "rating",
+        JSON.stringify([...rating, { id, title }])
+      );
       return [
-        ...prevState,
+        ...prevState.filter((el) => el.id !== id),
         {
           id,
           title,
@@ -75,7 +85,7 @@ export function ThemeProvider({ children }: Props) {
     items,
     changeData,
     activeStar,
-    changeActiveStar,
+    changeRating,
   };
 
   return <Context.Provider value={value}>{children}</Context.Provider>;

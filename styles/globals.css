@@ -1,55 +1,13 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
+@import "../сomponents/jobList/jobList.module.css";
 
-/* html,
-body {
-  padding: 0;
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
-}
-
-a {
-  color: inherit;
-  text-decoration: none;
-}
-
-* {
-  box-sizing: border-box;
-}
-
-@media (prefers-color-scheme: dark) {
-  html {
-    color-scheme: dark;
-  }
-
-  body {
-    color: white;
-    background: black;
-  }
+/* @layer base {
+    html {
+        font-family: Proxima Nova, system-ui, sans-serif;
+    }
 } */
 
-.star-rating {
-  @apply text-[0px];
-}
 
-.star-rating__wrap {
-  @apply inline-block text-[1rem];
-}
 
-.star-rating__ico {
-  @apply float-right px-[2px] cursor-pointer text-[#000] before:content-["\2606"];
-}
-
-.star-rating__ico--active {
-  @apply float-right px-[2px] cursor-pointer text-[#000] before:content-["\2605"];
-}
-
-.star-rating__input {
-  @apply hidden;
-}
-
-.star-rating__ico:hover::before,.star-rating__ico:hover ~ .star-rating__ico::before, .star-rating__input:checked ~ .star-rating__ico::before {
-  @apply content-["\2605"];
-}

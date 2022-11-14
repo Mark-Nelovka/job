@@ -28,7 +28,7 @@ export async function getServerSideProps() {
       },
     }
   );
-
+  console.log(res.data);
   // const loc = await axios.get("https://api.mapbox.com/geocoding/v5/mapbox.places/50.4276926,30.4724321.json?access_token=pk.eyJ1IjoibWFya2trZWwiLCJhIjoiY2xhY2dtZXdxMDNsbDNwbnZ0ZXc5aGV6ZSJ9.nESzR0zRoJe6NJU4uW_IuA")
   // console.log(loc.data);
   const data = await res.data;

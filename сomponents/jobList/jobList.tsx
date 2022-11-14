@@ -1,29 +1,21 @@
 import Image from "next/image";
-import { useEffect, useState } from "react";
-import { IData, IDataItems } from "../../interfaces/dataItems";
+import { IDataItems } from "../../interfaces/dataItems";
 import { useThemeContext } from "../../context/context";
+import { useRouter } from "next/router";
 
 export const Joblist = () => {
-  const [first, setFirst] = useState("");
-  const [valueStart, setValueStart] = useState("");
   const ctx = useThemeContext();
+  const router = useRouter();
 
-  const getStars = (event: React.MouseEvent) => {
+  const addRating = (event: React.MouseEvent) => {
     const { title } = event.target as HTMLLabelElement;
-    const { id } = event.currentTarget as HTMLLIElement;
-    ctx.changeActiveStar({ id, title });
-
-    // setFirst(id);
-    // setValueStart(title);
+    const { id } = event.currentTarget as HTMLDivElement;
+    ctx.changeRating({ id, title });
   };
 
-  // useEffect(() => {
-  //   console.log(ctx.activeStar);
-  // }, [ctx.activeStar]);
-
   return (
-    <section className="bg-[#E6E9F2] py-7 px-64">
-      <ul>
+    <section className="section">
+      <ul className="job-list">
         {ctx.items &&
           ctx.items.map(
             ({
@@ -37,35 +29,35 @@ export const Joblist = () => {
               phone,
             }: IDataItems) => {
               return (
-                <li
-                  key={id}
-                  className="bg-white mb-2 px-4 py-6 flex items-center"
-                  onClick={getStars}
-                  id={String(id)}
-                >
-                  <div className="mr-6">
+                <li key={id} className="job-list__item">
+                  <div className="job-list__image-container">
                     <Image
                       src={pictures[0]}
                       alt="img"
                       width={85}
                       height={85}
-                      className="rounded-[50%] h-[85px]"
                       priority
                     />
                   </div>
-                  <div className="flex items-start flex-col w-50">
-                    <span>{title}</span>
-                    <span>{name}</span>
-                    <span>{phone}</span>
+                  <div
+                    onClick={() => router.push("/detailed-job")}
+                    className="job-list__title-container"
+                  >
+                    <p>{title}</p>
+                    <div>
+                      <span>{name}</span>
+                      <span>{address}</span>
+                    </div>
+                    <p>Vienna, Austria</p>
                   </div>
                   <div className="star-rating">
                     <div
-                      onClick={getStars}
+                      onClick={addRating}
+                      id={String(id)}
                       className="star-rating__wrap after:table after:clear-both"
                     >
                       <input
                         className="star-rating__input"
-                        // id="star-rating-5"
                         type="radio"
                         name="rating"
                         value="5"
@@ -73,19 +65,18 @@ export const Joblist = () => {
                       />
                       <label
                         className={
-                          first === String(id) && valueStart === "5"
+                          ctx.activeStar.find(
+                            (el) => el.id === String(id) && el.title === "5"
+                          )
                             ? "star-rating__ico--active"
                             : "star-rating__ico"
                         }
                         htmlFor={String(id)}
-                        // onClick={qwe.changeActiveStar({ id, valueStart })}
                         title="5"
                         id={String(id)}
                       ></label>
                       <input
                         className="star-rating__input"
-                        // id="star-rating-4"
-                        // id={String(id)}
                         type="radio"
                         name="rating"
                         value="4"
@@ -94,7 +85,9 @@ export const Joblist = () => {
 
                       <label
                         className={
-                          first === String(id) && valueStart === "4"
+                          ctx.activeStar.find(
+                            (el) => el.id === String(id) && el.title >= "4"
+                          )
                             ? "star-rating__ico--active"
                             : "star-rating__ico"
                         }
@@ -105,7 +98,6 @@ export const Joblist = () => {
 
                       <input
                         className="star-rating__input"
-                        // id="star-rating-3"
                         id={String(id)}
                         type="radio"
                         name="rating"
@@ -113,7 +105,9 @@ export const Joblist = () => {
                       />
                       <label
                         className={
-                          first === String(id) && valueStart === "3"
+                          ctx.activeStar.find(
+                            (el) => el.id === String(id) && el.title >= "3"
+                          )
                             ? "star-rating__ico--active"
                             : "star-rating__ico"
                         }
@@ -123,7 +117,6 @@ export const Joblist = () => {
                       ></label>
                       <input
                         className="star-rating__input"
-                        // id="star-rating-2"
                         id={String(id)}
                         type="radio"
                         name="rating"
@@ -131,7 +124,9 @@ export const Joblist = () => {
                       />
                       <label
                         className={
-                          first === String(id) && valueStart === "2"
+                          ctx.activeStar.find(
+                            (el) => el.id === String(id) && el.title >= "2"
+                          )
                             ? "star-rating__ico--active"
                             : "star-rating__ico"
                         }
@@ -147,7 +142,9 @@ export const Joblist = () => {
                       />
                       <label
                         className={
-                          first === String(id) && valueStart === "1"
+                          ctx.activeStar.find(
+                            (el) => el.id === String(id) && el.title >= "1"
+                          )
                             ? "star-rating__ico--active"
                             : "star-rating__ico"
                         }

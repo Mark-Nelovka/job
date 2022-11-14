@@ -2,11 +2,19 @@ import axios from "axios";
 // import Head from "next/head";
 import Joblist from "../сomponents/jobList";
 import { IData } from "../interfaces/dataItems";
+import { useThemeContext } from "../context/context";
+import { useEffect } from "react";
 
 export default function Home({ data }: IData) {
+  const ctx = useThemeContext();
+
+  useEffect(() => {
+    ctx.changeData({ data });
+  }, [data, ctx]);
+
   return (
     <main>
-      <Joblist data={data} />
+      <Joblist />
     </main>
   );
 }

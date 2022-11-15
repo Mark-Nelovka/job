@@ -48,44 +48,8 @@ export function ThemeProvider({ children }: Props) {
     setActiveStar(d);
   }, []);
 
-  const simulateFetchData = async (username: IDataItems[]) => {};
-
-  const testFunc = (q: IDataItems[]) => {
-    // console.log("object");
-  };
-
   const changeData = async ({ data }: IData) => {
-    const qwe = Promise.resolve(data);
-    qwe
-      .then((res) => {
-        const q: IDataItems[] = [];
-        let getDatePosted = "1";
-        const dateNow = new Date();
-        const asd = res.map((item) => {
-          const dateCreatePost = new Date(item.createdAt);
-          const getYear = dateNow.getFullYear() - dateCreatePost.getFullYear();
-          if (getYear > 0) {
-            // q.push({ ...item, createdAt: String(getYear) + " years" });
-            return { ...item, createdAt: String(getYear) + " years" };
-          }
-          // if (getYear === 0) {
-          //   const getMonth = dateNow.getMonth() - dateCreatePost.getMonth();
-          //   return { ...item, createdAt: String(getMonth) + " month" };
-          // }
-          // return item;
-          return { ...item, createdAt: getYear + " years" };
-        });
-        // console.log(q);
-        return asd;
-      })
-      .then((result) => {
-        // console.log("res");
-        // setData(result);
-        return result;
-      });
-    // const qwe = await testFunc(data);
-    // console.log(q);
-    // setData(q);
+    setData(data);
   };
 
   const changeRating = ({ id, title }: propsItem) => {

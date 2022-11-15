@@ -1,13 +1,15 @@
 import Image from "next/image";
-// import LocationIcon from "../../assets/images";
 import LocalIcon from "./Location-icon.svg";
 import SaveIcon from "../../assets/images/Save-icon.svg";
 import { IDataItems } from "../../interfaces/dataItems";
 import { useThemeContext } from "../../context/context";
 import { useRouter } from "next/router";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import Pagination from "../pagination";
+import getDateCreatePost from "../../General/getDateCreatePost";
 
 export const Joblist = () => {
+  const [items, setItems] = useState<IDataItems[]>([]);
   const ctx = useThemeContext();
   const router = useRouter();
 
@@ -17,11 +19,17 @@ export const Joblist = () => {
     ctx.changeRating({ id, title });
   };
 
+  useEffect(() => {
+    if (ctx.items) {
+      setItems(getDateCreatePost(ctx.items));
+    }
+  }, [ctx.items]);
+
   return (
     <section className="section">
       <ul className="job-list">
-        {ctx.items &&
-          ctx.items.map(
+        {items.length > 0 &&
+          items.map(
             ({
               id,
               pictures,
@@ -164,13 +172,15 @@ export const Joblist = () => {
                       ></label>
                     </div>
                   </div>
-                  <div>
-                    <SaveIcon
-                      width={16}
-                      height={20}
-                      alt="Save icon"
-                      className="job-list__save-icon"
-                    />
+                  <div className="job-list__save--container">
+                    <span>
+                      <SaveIcon
+                        width={16}
+                        height={20}
+                        alt="Save icon"
+                        className="job-list__save-icon"
+                      />
+                    </span>
                     <p>{createdAt}</p>
                   </div>
                 </li>
@@ -178,6 +188,8 @@ export const Joblist = () => {
             }
           )}
       </ul>
+
+      <Pagination />
     </section>
   );
 };

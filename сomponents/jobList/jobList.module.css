@@ -3,11 +3,15 @@
 }
 
 .job-list {
-    @apply w-auto flex flex-col items-start;
+    @apply max-w-[1400px] mx-auto;
 }
 
 .job-list__item {
     @apply bg-white mb-2 px-4 py-6 flex items-center w-[100%];
+}
+
+.job-list__item:last-child {
+    @apply mb-0;
 }
 
 .job-list__image-container {
@@ -43,7 +47,7 @@
 }
 
 .star-rating {
-    @apply text-[0px] ml-auto;
+    @apply text-[0px] ml-auto mr-8;
 }
 
 .star-rating__wrap {
@@ -68,6 +72,14 @@
     @apply content-["\2605"];
 }
 
+.job-list__save--container {
+    @apply text-end;
+}
+
+.job-list__save--container > p  {
+    @apply mt-10 font-[ProximaNova] font-normal text-base text-[#878D9D] tracking-[0.23619px];
+}
+
 .job-list__save-icon {
     @apply cursor-pointer fill-none;
 }
@@ -75,4 +87,6 @@
 .job-list__save-icon:hover {
     @apply fill-[#70778B];
 }
+
+
 

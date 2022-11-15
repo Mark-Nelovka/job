@@ -23,7 +23,7 @@
 }
 
 .job-list__title-container > p:first-child {
-    @apply font-[ProximaNova] font-bold text-xl text-[#3A4562] tracking-[-0.625px];
+    @apply font-[ProximaNova] font-bold text-xl text-[#3A4562] tracking-[-0.625px] ml-0;
 }
 
 .job-list__title-container>div {
@@ -34,8 +34,12 @@
     @apply content-["\2022"] mx-1;
 }
 
-.job-list__title-container>p {
+.job-list__location-container {
     @apply font-[ProximaNova] font-normal text-base text-[#878D9D] tracking-[0.23619px];
+}
+
+.job-list__location-container > span:first-child {
+    @apply mr-2;
 }
 
 .star-rating {
@@ -62,5 +66,13 @@
 .star-rating__ico:hover~.star-rating__ico::before,
 .star-rating__input:checked~.star-rating__ico::before {
     @apply content-["\2605"];
+}
+
+.job-list__save-icon {
+    @apply cursor-pointer fill-none;
+}
+
+.job-list__save-icon:hover {
+    @apply fill-[#70778B];
 }
 

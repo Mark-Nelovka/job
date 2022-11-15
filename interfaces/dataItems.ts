@@ -13,6 +13,7 @@ export interface IDataItems {
   email: string;
   phone: string;
   salary: string;
+  createdAt: string
 }
 
 export interface IData {

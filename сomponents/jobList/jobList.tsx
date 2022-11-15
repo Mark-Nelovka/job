@@ -1,7 +1,11 @@
 import Image from "next/image";
+// import LocationIcon from "../../assets/images";
+import LocalIcon from "./Location-icon.svg";
+import SaveIcon from "../../assets/images/Save-icon.svg";
 import { IDataItems } from "../../interfaces/dataItems";
 import { useThemeContext } from "../../context/context";
 import { useRouter } from "next/router";
+import { useEffect } from "react";
 
 export const Joblist = () => {
   const ctx = useThemeContext();
@@ -27,6 +31,7 @@ export const Joblist = () => {
               location,
               benefits,
               phone,
+              createdAt,
             }: IDataItems) => {
               return (
                 <li key={id} className="job-list__item">
@@ -48,7 +53,12 @@ export const Joblist = () => {
                       <span>{name}</span>
                       <span>{address}</span>
                     </div>
-                    <p>Vienna, Austria</p>
+                    <p className="job-list__location-container">
+                      <span>
+                        <LocalIcon width={13} height={18} alt="location icon" />
+                      </span>
+                      <span>Vienna, Austria</span>
+                    </p>
                   </div>
                   <div className="star-rating">
                     <div
@@ -153,6 +163,15 @@ export const Joblist = () => {
                         id={String(id)}
                       ></label>
                     </div>
+                  </div>
+                  <div>
+                    <SaveIcon
+                      width={16}
+                      height={20}
+                      alt="Save icon"
+                      className="job-list__save-icon"
+                    />
+                    <p>{createdAt}</p>
                   </div>
                 </li>
               );

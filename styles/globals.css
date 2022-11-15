@@ -3,11 +3,11 @@
 @import "tailwindcss/utilities";
 @import "../сomponents/jobList/jobList.module.css";
 
-/* @layer base {
-    html {
-        font-family: Proxima Nova, system-ui, sans-serif;
+@layer base {
+    svg {
+        @apply inline-block align-baseline;
     }
-} */
+}
 
 
 

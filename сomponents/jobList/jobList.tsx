@@ -8,8 +8,15 @@ import { useEffect, useState } from "react";
 import Pagination from "../pagination";
 import getDateCreatePost from "../../General/getDateCreatePost";
 
+interface IGetNewItem {
+  pageActive: number;
+  ariaLabel: string;
+}
+
 export const Joblist = () => {
+  const [allItems, setAllItems] = useState<IDataItems[]>([]);
   const [items, setItems] = useState<IDataItems[]>([]);
+
   const ctx = useThemeContext();
   const router = useRouter();
 
@@ -21,9 +28,24 @@ export const Joblist = () => {
 
   useEffect(() => {
     if (ctx.items) {
-      setItems(getDateCreatePost(ctx.items));
+      const allItemsWithUpdateDate = getDateCreatePost(ctx.items);
+      setAllItems(allItemsWithUpdateDate);
+      setItems(allItemsWithUpdateDate.slice(0, 5));
     }
   }, [ctx.items]);
+
+  const getItemsForNewPage = (id: number, ariaLabel?: string) => {
+    const lastContentIndex = id * 5;
+    const firstContentIndex = lastContentIndex - 5;
+    if (lastContentIndex > allItems.length) {
+      setAllItems(allItems.concat(allItems));
+      setItems(
+        allItems.concat(allItems).slice(firstContentIndex, lastContentIndex)
+      );
+      return;
+    }
+    setItems(allItems.slice(firstContentIndex, lastContentIndex));
+  };
 
   return (
     <section className="section">
@@ -189,7 +211,11 @@ export const Joblist = () => {
           )}
       </ul>
 
-      <Pagination />
+      <Pagination
+        getItem={(id: number, ariaLabel?: string) =>
+          getItemsForNewPage(id, ariaLabel)
+        }
+      />
     </section>
   );
 };

@@ -1,3 +1,67 @@
 .pagination-container {
-    @apply my-12;
+    @apply flex items-center my-12 bg-white px-6 py-3 mx-auto w-max;
+}
+
+.pagination__arrow-left-container {
+    @apply flex items-center;
+}
+
+.pagination__arrow-left-container > svg {
+    @apply cursor-pointer;
+}
+
+.pagination__arrow-left-container::after {
+    @apply content-[""] w-[1px] h-8 border border-solid border-[#DEE3EF] ml-7 mr-14;
+}
+
+.pagination__arrow-right-container {
+    @apply flex items-center;
+}
+
+.pagination__arrow-right-container > svg {
+    @apply cursor-pointer;
+}
+
+.pagination__arrow-right-container::before {
+    @apply content-[""] w-[1px] h-8 border border-solid border-[#DEE3EF] ml-14 mr-7;
+}
+
+.pagination__number-container {
+    @apply flex items-center;
+} 
+
+.pagination__number-container > li:not(:last-child) {
+    @apply mr-3;
+} 
+
+ .pagination__number-container > li {
+        @apply inline-block font-[ProximaNova] text-xl tracking-[1.73333px] text-[#70778B] cursor-pointer;
+} 
+
+ .pagination__number-container>li:hover {
+    @apply scale-125;
+}
+
+.qwe {
+    @apply inline-block font-[ProximaNova] text-xl tracking-[1.73333px] text-[#70778B] cursor-pointer;
+}
+
+.qwe:not(:last-child) {
+    @apply mr-3;
+}
+
+.qwe:hover {
+     @apply scale-125;
+}
+
+.qwe--active {
+    @apply relative inline-block scale-125 font-[ProximaNova] text-xl tracking-[1.73333px] text-[#5876C5] cursor-pointer mr-3;
+}
+
+.qwe--active::after {
+    @apply content-[""] absolute border h-4 left-1 top-7 border-solid border-[#5876C5] rotate-90;
+}
+
+.qwe--active:hover {
+    @apply scale-125;
 }

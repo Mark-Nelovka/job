@@ -1,5 +1,4 @@
 import axios from "axios";
-// import Head from "next/head";
 import Joblist from "../сomponents/jobList";
 import { IData } from "../interfaces/dataItems";
 import { useThemeContext } from "../context/context";

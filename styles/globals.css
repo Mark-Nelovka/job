@@ -3,6 +3,7 @@
 @import "tailwindcss/utilities";
 @import "../сomponents/jobList/jobList.module.css";
 @import "../сomponents/pagination/pagination.module.css";
+@import "./detailed.css";
 
 @layer base {
     svg {

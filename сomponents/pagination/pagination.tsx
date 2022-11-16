@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import ArrowLeft from "../../assets/images/Arrow-pag-left.svg";
 import ArrowRight from "../../assets/images/Arrow-pag-right.svg";
 import { useThemeContext } from "../../context/context";
+import qaz from "../../data.json";
 
 interface IPagProps {
   getItem: (id: number, ariaLabel?: string) => void;

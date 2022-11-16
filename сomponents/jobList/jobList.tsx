@@ -52,17 +52,7 @@ export const Joblist = () => {
       <ul className="job-list">
         {items.length > 0 &&
           items.map(
-            ({
-              id,
-              pictures,
-              title,
-              name,
-              address,
-              location,
-              benefits,
-              phone,
-              createdAt,
-            }: IDataItems) => {
+            ({ id, pictures, title, name, address, createdAt }: IDataItems) => {
               return (
                 <li key={id} className="job-list__item">
                   <div className="job-list__image-container">

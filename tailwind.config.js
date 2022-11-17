@@ -21,7 +21,11 @@ module.exports = {
       bermuda: "#78dcca",
     },
     screens: {
-      sm: { min: "320px", max: "767px" },
+      sm: { min: "320px", max: "960px" },
+      xl: { min: "961px" },
+    },
+    container: {
+      padding: "1rem",
     },
   },
   plugins: [],

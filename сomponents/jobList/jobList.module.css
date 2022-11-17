@@ -1,13 +1,13 @@
 .section {
-    @apply bg-[#E6E9F2] py-7 px-5;
+    @apply bg-[#E6E9F2] w-screen py-5;
 }
 
-.job-list {
-    @apply max-w-[1400px] mx-auto;
+.job-container {
+    @apply sm:container sm:max-w-[396px] mx-auto;
 }
 
 .job-list__item {
-    @apply bg-white mb-2 px-4 py-6 flex items-center w-[100%];
+    @apply bg-white sm:py-4 mb-2 px-4 py-6 flex xl:items-center w-[100%];
 }
 
 .job-list__item:last-child {
@@ -15,23 +15,27 @@
 }
 
 .job-list__image-container {
-    @apply mr-6;
+    @apply sm:mt-9 mr-6;
 }
 
 .job-list__image-container > img {
-    @apply rounded-[50%] h-[85px];
+    @apply rounded-[50%] h-[66px] w-[66px];
+}
+
+.job-list__info-container {
+    @apply sm:w-60;
 }
 
 .job-list__title-container {
-    @apply cursor-pointer;
+    @apply cursor-pointer sm:mt-4 xl:max-w-[712px];
 }
 
 .job-list__title-container > p:first-child {
-    @apply font-[ProximaNova] font-bold text-xl text-[#3A4562] tracking-[-0.625px] ml-0;
+    @apply font-[ProximaNova] sm:font-normal sm:text-base sm:tracking-[-0.5625px] font-bold text-xl text-[#3A4562] tracking-[-0.625px] ml-0;
 }
 
 .job-list__title-container>div {
-    @apply font-[ProximaNova] font-normal text-base text-[#878D9D] tracking-[0.23619px] my-2;
+    @apply font-[ProximaNova] sm:my-1 font-normal text-base text-[#878D9D] tracking-[0.23619px] my-2;
 }
 
 .job-list__title-container>div>span:nth-child(1)::after {
@@ -47,7 +51,11 @@
 }
 
 .star-rating {
-    @apply text-[0px] ml-auto mr-8;
+    @apply text-[0px] ml-auto mr-8 sm:hidden xl:block;
+}
+
+.star-rating-sm {
+    @apply xl:hidden flex items-center justify-between;
 }
 
 .star-rating__wrap {
@@ -55,11 +63,11 @@
 }
 
 .star-rating__ico {
-    @apply float-right px-[2px] cursor-pointer text-[#000] before:content-["\2606"];
+    @apply xl:float-right xl:px-[2px] cursor-pointer text-[#000] before:content-["\2606"];
 }
 
 .star-rating__ico--active {
-    @apply float-right px-[2px] cursor-pointer text-[#000] before:content-["\2605"];
+    @apply xl:float-right xl:px-[2px] cursor-pointer text-[#000] before:content-["\2605"];
 }
 
 .star-rating__input {
@@ -72,12 +80,12 @@
     @apply content-["\2605"];
 }
 
-.job-list__save--container {
-    @apply text-end;
+.job-list__save-container {
+    @apply text-end sm:hidden;
 }
 
-.job-list__save--container > p  {
-    @apply mt-10 font-[ProximaNova] font-normal text-base text-[#878D9D] tracking-[0.23619px];
+.job-list__save-container > p  {
+    @apply xl:mt-10 font-[ProximaNova] sm:font-light sm:text-sm font-normal text-base text-[#878D9D] sm:tracking-[0.206667px] tracking-[0.23619px];
 }
 
 .job-list__save-icon {

@@ -49,163 +49,285 @@ export const Joblist = () => {
 
   return (
     <section className="section">
-      <ul className="job-list">
-        {items.length > 0 &&
-          items.map(
-            ({ id, pictures, title, name, address, createdAt }: IDataItems) => {
-              return (
-                <li key={id} className="job-list__item">
-                  <div className="job-list__image-container">
-                    <Image
-                      src={pictures[0]}
-                      alt="img"
-                      width={85}
-                      height={85}
-                      priority
-                    />
-                  </div>
-                  <div
-                    onClick={() => router.push("/detailed-job")}
-                    className="job-list__title-container"
-                  >
-                    <p>{title}</p>
-                    <div>
-                      <span>{name}</span>
-                      <span>{address}</span>
+      <div className="job-container">
+        <ul className="job-list">
+          {items.length > 0 &&
+            items.map(
+              ({
+                id,
+                pictures,
+                title,
+                name,
+                address,
+                createdAt,
+              }: IDataItems) => {
+                return (
+                  <li key={id} className="job-list__item">
+                    <div className="job-list__image-container">
+                      <Image
+                        src={pictures[0]}
+                        alt="img"
+                        width={85}
+                        height={85}
+                        priority
+                      />
                     </div>
-                    <p className="job-list__location-container">
+                    <div className="job-list__info-container">
+                      <div className="star-rating-sm">
+                        <div
+                          onClick={addRating}
+                          id={String(id)}
+                          className="star-rating__wrap"
+                        >
+                          <input
+                            className="star-rating__input"
+                            type="radio"
+                            name="rating"
+                            value="5"
+                            id={String(id)}
+                          />
+                          <label
+                            className={
+                              ctx.activeStar.find(
+                                (el) => el.id === String(id) && el.title === "5"
+                              )
+                                ? "star-rating__ico--active"
+                                : "star-rating__ico"
+                            }
+                            htmlFor={String(id)}
+                            title="5"
+                            id={String(id)}
+                          ></label>
+                          <input
+                            className="star-rating__input"
+                            type="radio"
+                            name="rating"
+                            value="4"
+                            id={String(id)}
+                          />
+
+                          <label
+                            className={
+                              ctx.activeStar.find(
+                                (el) => el.id === String(id) && el.title >= "4"
+                              )
+                                ? "star-rating__ico--active"
+                                : "star-rating__ico"
+                            }
+                            htmlFor={String(id)}
+                            title="4"
+                            id={String(id)}
+                          ></label>
+
+                          <input
+                            className="star-rating__input"
+                            id={String(id)}
+                            type="radio"
+                            name="rating"
+                            value="3"
+                          />
+                          <label
+                            className={
+                              ctx.activeStar.find(
+                                (el) => el.id === String(id) && el.title >= "3"
+                              )
+                                ? "star-rating__ico--active"
+                                : "star-rating__ico"
+                            }
+                            htmlFor={String(id)}
+                            title="3"
+                            id={String(id)}
+                          ></label>
+                          <input
+                            className="star-rating__input"
+                            id={String(id)}
+                            type="radio"
+                            name="rating"
+                            value="2"
+                          />
+                          <label
+                            className={
+                              ctx.activeStar.find(
+                                (el) => el.id === String(id) && el.title >= "2"
+                              )
+                                ? "star-rating__ico--active"
+                                : "star-rating__ico"
+                            }
+                            htmlFor={String(id)}
+                            title="2"
+                          ></label>
+                          <input
+                            className="star-rating__input"
+                            id={String(id)}
+                            type="radio"
+                            name="rating"
+                            value="1"
+                          />
+                          <label
+                            className={
+                              ctx.activeStar.find(
+                                (el) => el.id === String(id) && el.title >= "1"
+                              )
+                                ? "star-rating__ico--active"
+                                : "star-rating__ico"
+                            }
+                            htmlFor="star-rating-1"
+                            title="1"
+                            id={String(id)}
+                          ></label>
+                        </div>
+                        <div className="job-list__save-container">
+                          <p>{createdAt}</p>
+                        </div>
+                      </div>
+                      <div
+                        onClick={() => router.push("/detailed-job")}
+                        className="job-list__title-container"
+                      >
+                        <p>{title}</p>
+                        <div>
+                          <span>{name}</span>
+                          <span>{address}</span>
+                        </div>
+                        <p className="job-list__location-container">
+                          <span>
+                            <LocalIcon
+                              width={13}
+                              height={18}
+                              alt="location icon"
+                            />
+                          </span>
+                          <span>Vienna, Austria</span>
+                        </p>
+                      </div>
+                    </div>
+                    <div className="star-rating">
+                      <div
+                        onClick={addRating}
+                        id={String(id)}
+                        className="star-rating__wrap"
+                      >
+                        <input
+                          className="star-rating__input"
+                          type="radio"
+                          name="rating"
+                          value="5"
+                          id={String(id)}
+                        />
+                        <label
+                          className={
+                            ctx.activeStar.find(
+                              (el) => el.id === String(id) && el.title === "5"
+                            )
+                              ? "star-rating__ico--active"
+                              : "star-rating__ico"
+                          }
+                          htmlFor={String(id)}
+                          title="5"
+                          id={String(id)}
+                        ></label>
+                        <input
+                          className="star-rating__input"
+                          type="radio"
+                          name="rating"
+                          value="4"
+                          id={String(id)}
+                        />
+
+                        <label
+                          className={
+                            ctx.activeStar.find(
+                              (el) => el.id === String(id) && el.title >= "4"
+                            )
+                              ? "star-rating__ico--active"
+                              : "star-rating__ico"
+                          }
+                          htmlFor={String(id)}
+                          title="4"
+                          id={String(id)}
+                        ></label>
+
+                        <input
+                          className="star-rating__input"
+                          id={String(id)}
+                          type="radio"
+                          name="rating"
+                          value="3"
+                        />
+                        <label
+                          className={
+                            ctx.activeStar.find(
+                              (el) => el.id === String(id) && el.title >= "3"
+                            )
+                              ? "star-rating__ico--active"
+                              : "star-rating__ico"
+                          }
+                          htmlFor={String(id)}
+                          title="3"
+                          id={String(id)}
+                        ></label>
+                        <input
+                          className="star-rating__input"
+                          id={String(id)}
+                          type="radio"
+                          name="rating"
+                          value="2"
+                        />
+                        <label
+                          className={
+                            ctx.activeStar.find(
+                              (el) => el.id === String(id) && el.title >= "2"
+                            )
+                              ? "star-rating__ico--active"
+                              : "star-rating__ico"
+                          }
+                          htmlFor={String(id)}
+                          title="2"
+                        ></label>
+                        <input
+                          className="star-rating__input"
+                          id={String(id)}
+                          type="radio"
+                          name="rating"
+                          value="1"
+                        />
+                        <label
+                          className={
+                            ctx.activeStar.find(
+                              (el) => el.id === String(id) && el.title >= "1"
+                            )
+                              ? "star-rating__ico--active"
+                              : "star-rating__ico"
+                          }
+                          htmlFor="star-rating-1"
+                          title="1"
+                          id={String(id)}
+                        ></label>
+                      </div>
+                    </div>
+                    <div className="job-list__save-container">
                       <span>
-                        <LocalIcon width={13} height={18} alt="location icon" />
+                        <SaveIcon
+                          width={16}
+                          height={20}
+                          alt="Save icon"
+                          className="job-list__save-icon"
+                        />
                       </span>
-                      <span>Vienna, Austria</span>
-                    </p>
-                  </div>
-                  <div className="star-rating">
-                    <div
-                      onClick={addRating}
-                      id={String(id)}
-                      className="star-rating__wrap after:table after:clear-both"
-                    >
-                      <input
-                        className="star-rating__input"
-                        type="radio"
-                        name="rating"
-                        value="5"
-                        id={String(id)}
-                      />
-                      <label
-                        className={
-                          ctx.activeStar.find(
-                            (el) => el.id === String(id) && el.title === "5"
-                          )
-                            ? "star-rating__ico--active"
-                            : "star-rating__ico"
-                        }
-                        htmlFor={String(id)}
-                        title="5"
-                        id={String(id)}
-                      ></label>
-                      <input
-                        className="star-rating__input"
-                        type="radio"
-                        name="rating"
-                        value="4"
-                        id={String(id)}
-                      />
-
-                      <label
-                        className={
-                          ctx.activeStar.find(
-                            (el) => el.id === String(id) && el.title >= "4"
-                          )
-                            ? "star-rating__ico--active"
-                            : "star-rating__ico"
-                        }
-                        htmlFor={String(id)}
-                        title="4"
-                        id={String(id)}
-                      ></label>
-
-                      <input
-                        className="star-rating__input"
-                        id={String(id)}
-                        type="radio"
-                        name="rating"
-                        value="3"
-                      />
-                      <label
-                        className={
-                          ctx.activeStar.find(
-                            (el) => el.id === String(id) && el.title >= "3"
-                          )
-                            ? "star-rating__ico--active"
-                            : "star-rating__ico"
-                        }
-                        htmlFor={String(id)}
-                        title="3"
-                        id={String(id)}
-                      ></label>
-                      <input
-                        className="star-rating__input"
-                        id={String(id)}
-                        type="radio"
-                        name="rating"
-                        value="2"
-                      />
-                      <label
-                        className={
-                          ctx.activeStar.find(
-                            (el) => el.id === String(id) && el.title >= "2"
-                          )
-                            ? "star-rating__ico--active"
-                            : "star-rating__ico"
-                        }
-                        htmlFor={String(id)}
-                        title="2"
-                      ></label>
-                      <input
-                        className="star-rating__input"
-                        id={String(id)}
-                        type="radio"
-                        name="rating"
-                        value="1"
-                      />
-                      <label
-                        className={
-                          ctx.activeStar.find(
-                            (el) => el.id === String(id) && el.title >= "1"
-                          )
-                            ? "star-rating__ico--active"
-                            : "star-rating__ico"
-                        }
-                        htmlFor="star-rating-1"
-                        title="1"
-                        id={String(id)}
-                      ></label>
+                      <p>{createdAt}</p>
                     </div>
-                  </div>
-                  <div className="job-list__save--container">
-                    <span>
-                      <SaveIcon
-                        width={16}
-                        height={20}
-                        alt="Save icon"
-                        className="job-list__save-icon"
-                      />
-                    </span>
-                    <p>{createdAt}</p>
-                  </div>
-                </li>
-              );
-            }
-          )}
-      </ul>
+                  </li>
+                );
+              }
+            )}
+        </ul>
 
-      <Pagination
-        getItem={(id: number, ariaLabel?: string) =>
-          getItemsForNewPage(id, ariaLabel)
-        }
-      />
+        {/* <Pagination
+          getItem={(id: number, ariaLabel?: string) =>
+            getItemsForNewPage(id, ariaLabel)
+          }
+        /> */}
+      </div>
     </section>
   );
 };

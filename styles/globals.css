@@ -1,8 +1,8 @@
 @import "tailwindcss/base";
 @import "tailwindcss/components";
 @import "tailwindcss/utilities";
-@import "../сomponents/jobList/jobList.module.css";
-@import "../сomponents/pagination/pagination.module.css";
+@import "./jobList.css";
+@import "./pagination.css";
 @import "./detailed.css";
 
 @layer base {

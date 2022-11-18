@@ -1,13 +1,13 @@
 .section {
-    @apply bg-[#E6E9F2] w-screen py-5;
+    @apply bg-mainBack w-screen py-5;
 }
 
 .job-container {
-    @apply sm:container sm:max-w-[396px] mx-auto;
+    @apply sm:container sm:max-w-[416px] xl:container xl:max-w-[1432px] mx-auto;
 }
 
 .job-list__item {
-    @apply bg-white sm:py-4 mb-2 px-4 py-6 flex xl:items-center w-[100%];
+    @apply sm:bg-cardMobile sm:h-[206px] xl:h-[164px] bg-white sm:py-4 mb-2 px-4 py-6 flex xl:items-center w-full rounded-lg;
 }
 
 .job-list__item:last-child {
@@ -23,7 +23,7 @@
 }
 
 .job-list__info-container {
-    @apply sm:w-60;
+    @apply sm:w-[279px];
 }
 
 .job-list__title-container {
@@ -31,11 +31,11 @@
 }
 
 .job-list__title-container > p:first-child {
-    @apply font-[ProximaNova] sm:font-normal sm:text-base sm:tracking-[-0.5625px] font-bold text-xl text-[#3A4562] tracking-[-0.625px] ml-0;
+    @apply font-nova sm:font-normal sm:text-base sm:tracking-[-0.5625px] font-bold text-xl text-titleGrey tracking-[-0.625px] ml-0;
 }
 
 .job-list__title-container>div {
-    @apply font-[ProximaNova] sm:my-1 font-normal text-base text-[#878D9D] tracking-[0.23619px] my-2;
+    @apply font-nova sm:my-1 font-normal text-base text-lightGrey tracking-[0.23619px] my-2;
 }
 
 .job-list__title-container>div>span:nth-child(1)::after {
@@ -43,7 +43,7 @@
 }
 
 .job-list__location-container {
-    @apply font-[ProximaNova] font-normal text-base text-[#878D9D] tracking-[0.23619px];
+    @apply font-nova font-normal text-base text-lightGrey tracking-[0.23619px];
 }
 
 .job-list__location-container > span:first-child {
@@ -63,11 +63,11 @@
 }
 
 .star-rating__ico {
-    @apply xl:float-right xl:px-[2px] cursor-pointer text-[#000] before:content-["\2606"];
+    @apply xl:float-right xl:px-[2px] cursor-pointer text-black before:content-["\2606"];
 }
 
 .star-rating__ico--active {
-    @apply xl:float-right xl:px-[2px] cursor-pointer text-[#000] before:content-["\2605"];
+    @apply xl:float-right xl:px-[2px] cursor-pointer text-black before:content-["\2605"];
 }
 
 .star-rating__input {
@@ -84,8 +84,15 @@
     @apply text-end sm:hidden;
 }
 
+.job-list__save-container-sm {
+    @apply text-end xl:hidden;
+} 
+
+.job-list__save-container-sm > p {
+    @apply xl:mt-10 font-nova sm:font-light sm:text-sm font-normal text-base text-lightGrey sm:tracking-[0.206667px] tracking-[0.23619px];}
+
 .job-list__save-container > p  {
-    @apply xl:mt-10 font-[ProximaNova] sm:font-light sm:text-sm font-normal text-base text-[#878D9D] sm:tracking-[0.206667px] tracking-[0.23619px];
+    @apply xl:mt-10 font-nova sm:font-light sm:text-sm font-normal text-base text-lightGrey sm:tracking-[0.206667px] tracking-[0.23619px];
 }
 
 .job-list__save-icon {
@@ -93,7 +100,7 @@
 }
 
 .job-list__save-icon:hover {
-    @apply fill-[#70778B];
+    @apply fill-darkGrey;
 }
 
 

@@ -1,38 +1,43 @@
-// import axios from "axios";
+import { InferGetServerSidePropsType } from "next";
+import Error from "next/error";
 import Joblist from "../сomponents/jobList";
 import { useThemeContext } from "../context/context";
 import { useEffect } from "react";
-import data from "../data.json";
 
-// import { IData } from "../interfaces/dataItems";
-
-export default function Home() {
+export default function Home({
+  errorCode,
+  data,
+}: InferGetServerSidePropsType<typeof getServerSideProps>) {
   const ctx = useThemeContext();
 
   useEffect(() => {
-    ctx.changeData({ data });
-  }, [ctx]);
+    if (errorCode === 200) {
+      ctx.changeData({ data });
+      return;
+    }
+  }, [ctx, data, errorCode]);
 
   return (
     <main>
+      {errorCode !== 200 && <Error statusCode={errorCode} />}
       <Joblist />
     </main>
   );
 }
 
-// export async function getServerSideProps() {
-//   const res = await axios.get(
-//     "https://api.json-generator.com/templates/ZM1r0eic3XEy/data",
-//     {
-//       headers: {
-//         Authorization: "Bearer wm3gg940gy0xek1ld98uaizhz83c6rh2sir9f9fu",
-//       },
-//     }
-//   );
-//   // const loc = await axios.get("https://api.mapbox.com/geocoding/v5/mapbox.places/50.4276926,30.4724321.json?access_token=pk.eyJ1IjoibWFya2trZWwiLCJhIjoiY2xhY2dtZXdxMDNsbDNwbnZ0ZXc5aGV6ZSJ9.nESzR0zRoJe6NJU4uW_IuA")
-//   // console.log(loc.data);
-//   const data = await res.data;
-//   // 9.804124
-//   // 147.139488
-//   return { props: { data } };
-// }
+export async function getServerSideProps() {
+  const res = await fetch(
+    "https://api.json-generator.com/templates/ZM1r0eic3XEy/data",
+    {
+      headers: {
+        Authorization: "Bearer wm3gg940gy0xek1ld98uaizhz83c6rh2sir9f9fu",
+      },
+    }
+  );
+  const errorCode = res.ok ? 200 : res.status;
+  const data = await res.json();
+
+  return {
+    props: { errorCode, data },
+  };
+}

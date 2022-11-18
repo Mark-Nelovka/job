@@ -1,17 +1,12 @@
 import Image from "next/image";
-import LocalIcon from "./Location-icon.svg";
-import SaveIcon from "../../assets/images/Save-icon.svg";
-import { IDataItems } from "../../interfaces/dataItems";
-import { useThemeContext } from "../../context/context";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
+import { useThemeContext } from "../../context/context";
 import Pagination from "../pagination";
 import getDateCreatePost from "../../General/getDateCreatePost";
-
-interface IGetNewItem {
-  pageActive: number;
-  ariaLabel: string;
-}
+import { IDataItems } from "../../interfaces/dataItems";
+import LocalIcon from "./Location-icon.svg";
+import SaveIcon from "../../assets/images/Save-icon.svg";
 
 export const Joblist = () => {
   const [allItems, setAllItems] = useState<IDataItems[]>([]);
@@ -34,9 +29,13 @@ export const Joblist = () => {
     }
   }, [ctx.items]);
 
-  const getItemsForNewPage = (id: number, ariaLabel?: string) => {
+  const getItemsForNewPage = (id: number) => {
     const lastContentIndex = id * 5;
     const firstContentIndex = lastContentIndex - 5;
+    if (id === ctx.items!.length) {
+      setItems(allItems.slice(allItems.length - 5));
+      return;
+    }
     if (lastContentIndex > allItems.length) {
       setAllItems(allItems.concat(allItems));
       setItems(
@@ -69,7 +68,6 @@ export const Joblist = () => {
                         alt="img"
                         width={85}
                         height={85}
-                        priority
                       />
                     </div>
                     <div className="job-list__info-container">
@@ -176,15 +174,21 @@ export const Joblist = () => {
                             id={String(id)}
                           ></label>
                         </div>
-                        <div className="job-list__save-container">
+                        <div className="job-list__save-container-sm">
                           <p>{createdAt}</p>
                         </div>
                       </div>
-                      <div
-                        onClick={() => router.push("/detailed-job")}
-                        className="job-list__title-container"
-                      >
-                        <p>{title}</p>
+                      <div className="job-list__title-container">
+                        <p
+                          onClick={() =>
+                            router.push({
+                              pathname: id,
+                              query: id,
+                            })
+                          }
+                        >
+                          {title}
+                        </p>
                         <div>
                           <span>{name}</span>
                           <span>{address}</span>
@@ -322,11 +326,7 @@ export const Joblist = () => {
             )}
         </ul>
 
-        {/* <Pagination
-          getItem={(id: number, ariaLabel?: string) =>
-            getItemsForNewPage(id, ariaLabel)
-          }
-        /> */}
+        <Pagination getItem={(id: number) => getItemsForNewPage(id)} />
       </div>
     </section>
   );

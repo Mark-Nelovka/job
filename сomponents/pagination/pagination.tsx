@@ -1,13 +1,9 @@
 import Notiflix from "notiflix";
 import { useEffect, useState } from "react";
+import { useThemeContext } from "../../context/context";
+import { IPagProps } from "../../interfaces/pagination";
 import ArrowLeft from "../../assets/images/Arrow-pag-left.svg";
 import ArrowRight from "../../assets/images/Arrow-pag-right.svg";
-import { useThemeContext } from "../../context/context";
-import qaz from "../../data.json";
-
-interface IPagProps {
-  getItem: (id: number, ariaLabel?: string) => void;
-}
 
 export const Pagination = ({ getItem }: IPagProps) => {
   const [pageActive, setPageActive] = useState(1);
@@ -16,20 +12,19 @@ export const Pagination = ({ getItem }: IPagProps) => {
   const ctx = useThemeContext();
 
   useEffect(() => {
-    const arr = [];
+    const arrForPageCount = [];
     if (ctx.items) {
       const getPageCount = ctx.items.length;
       for (let i = 1; i < getPageCount + 1; i += 1) {
-        arr.push(i);
+        arrForPageCount.push(i);
       }
     }
-    setAllPageCount(arr);
-    setPageCount(arr.slice(0, 5));
+    setAllPageCount(arrForPageCount);
+    setPageCount(arrForPageCount.slice(0, 5));
   }, [ctx.items]);
 
   const setPage = (event: React.MouseEvent) => {
     const { ariaLabel, id } = event.currentTarget as HTMLButtonElement;
-
     switch (ariaLabel) {
       case "increment":
         if (pageActive === allPageCount.length) {
@@ -37,7 +32,7 @@ export const Pagination = ({ getItem }: IPagProps) => {
           return;
         }
         setPageActive((prevState) => prevState + 1);
-        getItem(+id + 1, ariaLabel);
+        getItem(+id + 1);
         if (pageActive + 1 > pageCount[pageCount.length - 1]) {
           const arr = allPageCount.slice(+id, +id + 5);
           setPageCount(arr);
@@ -49,7 +44,7 @@ export const Pagination = ({ getItem }: IPagProps) => {
           return;
         }
         setPageActive((prevState) => prevState - 1);
-        getItem(+id - 1, ariaLabel);
+        getItem(+id - 1);
         if (pageActive - 1 < pageCount[0]) {
           const arr = allPageCount.slice(+id - 6, +id - 1);
           setPageCount(arr);
@@ -73,20 +68,24 @@ export const Pagination = ({ getItem }: IPagProps) => {
         id={String(pageActive)}
       >
         <ArrowLeft
-          alt="pag left"
+          alt="arrow left"
           width="14"
           height="18"
           id={String(pageActive)}
         />
       </button>
-      <ul className="pagination__number-container">
+      <ul className="pagination__number-list">
         {pageCount.map((pageNumber, inx) => {
           return (
             <li
               key={inx}
               onClick={setPage}
               id={String(pageNumber)}
-              className={pageActive === pageNumber ? "qwe--active" : "qwe"}
+              className={
+                pageActive === pageNumber
+                  ? "pagination__number-list__item--active"
+                  : "pagination__number-list__item "
+              }
             >
               {pageNumber}
             </li>
@@ -100,9 +99,11 @@ export const Pagination = ({ getItem }: IPagProps) => {
                 : "..."}
             </li>
             <li
-              id={String(pageActive)}
+              id={String(allPageCount.length)}
               className={
-                pageActive === allPageCount.length ? "qwe--active" : "qwe"
+                pageActive === allPageCount.length
+                  ? "pagination__number-list__item--active"
+                  : "pagination__number-list__item "
               }
               onClick={setPage}
             >
@@ -119,7 +120,7 @@ export const Pagination = ({ getItem }: IPagProps) => {
       >
         <ArrowRight
           id={String(pageActive)}
-          alt="pag left"
+          alt="arrow right"
           width="14"
           height="18"
         />

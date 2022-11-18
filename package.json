@@ -7,8 +7,8 @@
     "build": "npm run build:css && next build",
     "start": "concurrently -n Tailwind npm run watch:css next start",
     "lint": "next lint",
-    "build:css": "tailwind build src/App.css -o src/index.css",
-    "watch:css": "chokidar 'src/App.css' -c 'npm run build:css'"
+    "build:css": "tailwind build ./styles/globals.css -o ./dist/output.css",
+    "watch:css": "chokidar './styles/globals.css' -c 'npm run build:css'"
   },
   "dependencies": {
     "@svgr/webpack": "^6.5.1",

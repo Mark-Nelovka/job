@@ -3,7 +3,6 @@ import Error from "next/error";
 import Joblist from "../сomponents/jobList";
 import { useThemeContext } from "../context/context";
 import { useEffect } from "react";
-import Loader from "../сomponents/loader";
 
 export default function Home({
   errorCode,

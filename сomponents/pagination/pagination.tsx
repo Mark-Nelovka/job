@@ -25,6 +25,7 @@ export const Pagination = ({ getItem }: IPagProps) => {
 
   const setPage = (event: React.MouseEvent) => {
     const { ariaLabel, id } = event.currentTarget as HTMLButtonElement;
+    let count = null;
     switch (ariaLabel) {
       case "increment":
         if (pageActive === allPageCount.length) {
@@ -34,8 +35,8 @@ export const Pagination = ({ getItem }: IPagProps) => {
         setPageActive((prevState) => prevState + 1);
         getItem(+id + 1);
         if (pageActive + 1 > pageCount[pageCount.length - 1]) {
-          const arr = allPageCount.slice(+id, +id + 5);
-          setPageCount(arr);
+          count = allPageCount.slice(+id, +id + 5);
+          setPageCount(count);
           return;
         }
         break;
@@ -46,8 +47,8 @@ export const Pagination = ({ getItem }: IPagProps) => {
         setPageActive((prevState) => prevState - 1);
         getItem(+id - 1);
         if (pageActive - 1 < pageCount[0]) {
-          const arr = allPageCount.slice(+id - 6, +id - 1);
-          setPageCount(arr);
+          count = allPageCount.slice(+id - 6, +id - 1);
+          setPageCount(count);
           return;
         }
         break;
@@ -55,6 +56,13 @@ export const Pagination = ({ getItem }: IPagProps) => {
       default:
         setPageActive(+id);
         getItem(+id);
+        if (+id === allPageCount.length) {
+          const arr = allPageCount.slice(
+            allPageCount[allPageCount.length - 6],
+            allPageCount[allPageCount.length]
+          );
+          setPageCount(arr);
+        }
         break;
     }
   };

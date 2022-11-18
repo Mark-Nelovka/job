@@ -25,37 +25,43 @@ export const Joblist = () => {
 
   useEffect(() => {
     setLoading(true);
-    let allItemsWithUpdateDate = null;
+    let allItemsWithUpdateDate: IDataItems[] = [];
     if (ctx.items) {
       allItemsWithUpdateDate = getDateCreatePost(ctx.items);
-      setAllItems(allItemsWithUpdateDate);
       setItems(allItemsWithUpdateDate.slice(0, 5));
       setLoading(false);
+      const itemsForState: IDataItems[] = [];
+      for (let i = 0; i < allItemsWithUpdateDate.length * 5; i += 1) {
+        allItemsWithUpdateDate.map((el) => {
+          if (itemsForState.length === allItemsWithUpdateDate.length * 5) {
+            return;
+          }
+          itemsForState.push(el);
+        });
+      }
+      setAllItems(itemsForState);
       return;
     }
   }, [ctx.items]);
 
   const getItemsForNewPage = (id: number) => {
     setLoading(true);
-    const lastContentIndex = id * 5;
-    const firstContentIndex = lastContentIndex - 5;
+    const lastIndex = id * 5;
+    const firstIndex = lastIndex - 5;
+
     if (id === ctx.items!.length) {
       setItems(allItems.slice(allItems.length - 5));
       setLoading(false);
       return;
     }
-    if (lastContentIndex > allItems.length) {
-      setAllItems(allItems.concat(allItems));
-      setItems(
-        allItems.concat(allItems).slice(firstContentIndex, lastContentIndex)
-      );
+    if (lastIndex > allItems.length) {
+      setItems(allItems.slice(firstIndex, lastIndex));
       setLoading(false);
 
       return;
     }
     setLoading(false);
-
-    setItems(allItems.slice(firstContentIndex, lastContentIndex));
+    setItems(allItems.slice(firstIndex, lastIndex));
   };
 
   return (

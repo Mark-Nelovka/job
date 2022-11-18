@@ -7,10 +7,12 @@ import getDateCreatePost from "../../General/getDateCreatePost";
 import { IDataItems } from "../../interfaces/dataItems";
 import LocalIcon from "../../assets/images/Location-icon.svg";
 import SaveIcon from "../../assets/images/Save-icon.svg";
+import Loader from "../loader";
 
 export const Joblist = () => {
   const [allItems, setAllItems] = useState<IDataItems[]>([]);
   const [items, setItems] = useState<IDataItems[]>([]);
+  const [loading, setLoading] = useState<boolean>(false);
 
   const ctx = useThemeContext();
   const router = useRouter();
@@ -22,18 +24,24 @@ export const Joblist = () => {
   };
 
   useEffect(() => {
+    setLoading(true);
+    let allItemsWithUpdateDate = null;
     if (ctx.items) {
-      const allItemsWithUpdateDate = getDateCreatePost(ctx.items);
+      allItemsWithUpdateDate = getDateCreatePost(ctx.items);
       setAllItems(allItemsWithUpdateDate);
       setItems(allItemsWithUpdateDate.slice(0, 5));
+      setLoading(false);
+      return;
     }
   }, [ctx.items]);
 
   const getItemsForNewPage = (id: number) => {
+    setLoading(true);
     const lastContentIndex = id * 5;
     const firstContentIndex = lastContentIndex - 5;
     if (id === ctx.items!.length) {
       setItems(allItems.slice(allItems.length - 5));
+      setLoading(false);
       return;
     }
     if (lastContentIndex > allItems.length) {
@@ -41,13 +49,18 @@ export const Joblist = () => {
       setItems(
         allItems.concat(allItems).slice(firstContentIndex, lastContentIndex)
       );
+      setLoading(false);
+
       return;
     }
+    setLoading(false);
+
     setItems(allItems.slice(firstContentIndex, lastContentIndex));
   };
 
   return (
     <section className="section">
+      {loading && <Loader />}
       {items.length > 0 && (
         <div className="job-container">
           <ul className="job-list">

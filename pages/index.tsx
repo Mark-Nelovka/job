@@ -3,6 +3,7 @@ import Error from "next/error";
 import Joblist from "../сomponents/jobList";
 import { useThemeContext } from "../context/context";
 import { useEffect } from "react";
+import Loader from "../сomponents/loader";
 
 export default function Home({
   errorCode,
@@ -26,7 +27,7 @@ export default function Home({
 
 export async function getServerSideProps() {
   const res = await fetch(
-    "https://api.json-generator.com/teplates/ZM1r0eic3XEy/data",
+    "https://api.json-generator.com/templates/ZM1r0eic3XEy/data",
     {
       headers: {
         Authorization: "Bearer wm3gg940gy0xek1ld98uaizhz83c6rh2sir9f9fu",

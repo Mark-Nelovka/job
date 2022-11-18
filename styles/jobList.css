@@ -63,11 +63,11 @@
 }
 
 .star-rating__ico {
-    @apply xl:float-right xl:px-[2px] cursor-pointer text-black before:content-["\2606"];
+    @apply float-right xl:px-[2px] cursor-pointer text-black before:content-["\2606"];
 }
 
 .star-rating__ico--active {
-    @apply xl:float-right xl:px-[2px] cursor-pointer text-black before:content-["\2605"];
+    @apply float-right xl:px-[2px] cursor-pointer text-black before:content-["\2605"];
 }
 
 .star-rating__input {

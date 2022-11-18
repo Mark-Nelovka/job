@@ -1,9 +1,13 @@
-.detailed-container {
-    @apply sm:py-6 xl:py-14 container sm:max-w-[416px] m-auto;
+.detailed-section-container {
+    @apply sm:py-6 xl:py-14 xl:max-w-[1400px] sm:max-w-[416px] m-auto xl:flex xl:items-start xl:justify-around;
+}
+
+.detailed__container {
+    @apply xl:max-w-[774px]
 }
 
 .header-container {
-    @apply relative xl:flex xl:items-center xl:justify-between max-w-[774px] mb-3;
+    @apply relative xl:flex xl:items-center xl:justify-between mb-3;
 }
 
 .detailed__header-title {
@@ -14,12 +18,20 @@
     @apply flex items-center;
 }
 
-.detailed__save-container > p {
-    @apply font-roboto text-lg text-titleGrey ml-2 tracking-[-0.5625px];
+.detailed__save-container > button {
+    @apply flex items-center font-roboto text-lg text-titleGrey ml-2 tracking-[-0.5625px];
 }
 
-.detailed__save-container > p:not(:last-child) {
-    @apply mr-6;
+.detailed__save-container>button:first-child:hover > svg {
+    @apply fill-darkGrey;
+}
+
+.detailed__save-container>button:not(:last-child) {
+@apply mr-2
+}
+
+.detailed__save-container > button > p {
+    @apply ml-3;
 }
 
 .detailed__save-container {
@@ -27,7 +39,7 @@
 }
 
 .detailed__save-container-sm {
-    @apply flex items-center;
+    @apply flex items-center xl:hidden;
 }
 
 .detailed__save-container-sm > p {
@@ -178,7 +190,7 @@
 }
 
 .detailed__button-back-page {
-    @apply font-nova font-semibold text-xs uppercase text-titleGrey flex items-center bg-[#e5e7eb] rounded-lg px-6 py-4 mt-24 xl:translate-x-[-50%];
+    @apply font-nova font-semibold text-xs uppercase text-titleGrey flex items-center bg-[#e5e7eb] rounded-lg px-6 py-4 mt-24 xl:translate-x-[-25%] sm:hidden;
 }
 
 .detailed__button-back-page > svg {

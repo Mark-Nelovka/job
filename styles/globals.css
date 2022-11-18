@@ -1,10 +1,12 @@
 @import "tailwindcss/base";
 @import "tailwindcss/components";
 @import "tailwindcss/utilities";
+@import "./loader.css";
 @import "./jobList.css";
 @import "./pagination.css";
 @import "./detailed.css";
 @import "./map.css";
+
 
 @layer base {
     svg {

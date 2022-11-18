@@ -1,5 +1,13 @@
 .map__container {
-    @apply mt-16
+    @apply sm:mt-10 xl:max-w-[402px]
+}
+
+.map__title {
+ @apply font-nova font-bold text-xl text-titleGrey tracking-[0.625px] mb-3 xl:hidden;
+}
+
+.map__title-separator {
+        @apply w-full h-px bg-darkGrey opacity-[0.13] mb-5 xl:hidden;
 }
 
 .map-list {

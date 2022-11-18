@@ -6,26 +6,10 @@ import React, {
   useState,
 } from "react";
 import { IDataItems, IData } from "../interfaces/dataItems";
+import { authContextType, IStarState, propsItem } from "../interfaces/context";
 
-type Props = {
+export type Props = {
   children: ReactNode;
-};
-
-interface IStarState {
-  id: string;
-  title: string;
-}
-
-type propsItem = {
-  id: string;
-  title: string;
-};
-
-type authContextType = {
-  items: IDataItems[] | undefined;
-  changeData: (data: IData) => void;
-  activeStar: IStarState[];
-  changeRating: ({ id, title }: propsItem) => void;
 };
 
 const authContextDefaultValues: authContextType = {
@@ -42,10 +26,10 @@ export function ThemeProvider({ children }: Props) {
   const [activeStar, setActiveStar] = useState<IStarState[]>([]);
 
   useEffect(() => {
-    const d: IStarState[] = JSON.parse(localStorage.getItem("rating")!)
+    const localStars: IStarState[] = JSON.parse(localStorage.getItem("rating")!)
       ? JSON.parse(localStorage.getItem("rating")!)
       : [];
-    setActiveStar(d);
+    setActiveStar(localStars);
   }, []);
 
   const changeData = async ({ data }: IData) => {

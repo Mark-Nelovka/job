@@ -4,6 +4,7 @@
 @import "./jobList.css";
 @import "./pagination.css";
 @import "./detailed.css";
+@import "./map.css";
 
 @layer base {
     svg {

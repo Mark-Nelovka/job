@@ -1,0 +1,23 @@
+.map__container {
+    @apply mt-16
+}
+
+.map-list {
+    @apply bg-map px-16 py-8;
+}
+
+.map__title-container { 
+    @apply font-nova font-bold text-sm text-[#E7EAF0] tracking-[0.23619px]
+}
+
+.map__location-container {
+    @apply font-nova font-normal text-base text-[#E7EAF0] tracking-[-0.5px] mt-4 mb-2
+}
+
+.map__location-container > span:not(:first-child) {
+    @apply ml-2
+}
+
+.map__links-container {
+    @apply font-nova font-normal text-base text-lightGrey tracking-[-0.5px]
+}

@@ -5,7 +5,7 @@ import { useThemeContext } from "../../context/context";
 import Pagination from "../pagination";
 import getDateCreatePost from "../../General/getDateCreatePost";
 import { IDataItems } from "../../interfaces/dataItems";
-import LocalIcon from "./Location-icon.svg";
+import LocalIcon from "../../assets/images/Location-icon.svg";
 import SaveIcon from "../../assets/images/Save-icon.svg";
 
 export const Joblist = () => {
@@ -48,10 +48,10 @@ export const Joblist = () => {
 
   return (
     <section className="section">
-      <div className="job-container">
-        <ul className="job-list">
-          {items.length > 0 &&
-            items.map(
+      {items.length > 0 && (
+        <div className="job-container">
+          <ul className="job-list">
+            {items.map(
               ({
                 id,
                 pictures,
@@ -324,10 +324,11 @@ export const Joblist = () => {
                 );
               }
             )}
-        </ul>
+          </ul>
 
-        <Pagination getItem={(id: number) => getItemsForNewPage(id)} />
-      </div>
+          <Pagination getItem={(id: number) => getItemsForNewPage(id)} />
+        </div>
+      )}
     </section>
   );
 };

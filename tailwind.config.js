@@ -22,6 +22,7 @@ module.exports = {
       yellow: "#FFCF00",
       backPagMob: "#F9FAFD",
       button: "#384564",
+      map: "#2A3047",
       blueLight: "#55699E",
     },
     screens: {

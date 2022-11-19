@@ -1,17 +1,17 @@
 .pagination-container {
-    @apply flex items-center justify-center my-12 sm:bg-backPagMob bg-white mx-auto px-6 py-3 xl:max-w-[512px] rounded-lg;
+    @apply flex items-center justify-between my-12 sm:bg-backPagMob bg-white mx-auto px-6 py-3 xl:max-w-[512px] rounded-lg;
 }
 
-.pagination__arrow-left-container {
-    @apply flex items-center;
+.pagination__arrow-left-button {
+    @apply flex items-center p-1;
 }
 
 .pagination__arrow-left-container > svg {
     @apply cursor-pointer;
 }
 
-.pagination__arrow-right-container {
-    @apply flex items-center;
+.pagination__arrow-right-button {
+    @apply flex items-center p-1;
 }
 
 .pagination__arrow-right-container > svg {
@@ -23,11 +23,11 @@
 } 
 
 .pagination__number-list::after {
-    @apply content-[""] w-[1px] h-8 border border-solid sm:border-[#f5f5f7] border-[#DEE3EF] sm:ml-10 ml-7 mr-7;
+    @apply content-[""] w-[1px] h-8 border border-solid sm:border-[#f5f5f7] border-[#DEE3EF] ml-7 mr-7;
 }
 
 .pagination__number-list::before {
-    @apply content-[""] w-[1px] h-8 border border-solid sm:border-[#f5f5f7] border-[#DEE3EF] sm:mr-10 ml-7 mr-7;
+    @apply content-[""] w-[1px] h-8 border border-solid sm:border-[#f5f5f7] border-[#DEE3EF] ml-7 mr-7;
 }
 
 .pagination__number-list > li:not(:last-child) {

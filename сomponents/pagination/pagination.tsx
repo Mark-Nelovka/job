@@ -71,7 +71,7 @@ export const Pagination = ({ getItem }: IPagProps) => {
     <div className="pagination-container">
       <button
         onClick={setPage}
-        className="pagination__arrow-left-container"
+        className="pagination__arrow-left-button"
         aria-label="decrement"
         id={String(pageActive)}
       >
@@ -122,7 +122,7 @@ export const Pagination = ({ getItem }: IPagProps) => {
       </ul>
       <button
         onClick={setPage}
-        className="pagination__arrow-right-container"
+        className="pagination__arrow-right-button"
         id={String(pageActive)}
         aria-label="increment"
       >

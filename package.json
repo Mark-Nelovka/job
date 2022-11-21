@@ -22,6 +22,7 @@
     "notiflix": "^3.2.5",
     "react": "18.2.0",
     "react-dom": "18.2.0",
+    "react-hooks-global-state": "^2.0.0",
     "react-spinners": "^0.13.6",
     "typescript": "4.8.4"
   },

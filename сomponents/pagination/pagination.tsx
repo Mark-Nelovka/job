@@ -1,7 +1,7 @@
-import Notiflix from "notiflix";
 import { useEffect, useState } from "react";
-import { useThemeContext } from "../../context/context";
+import { useGlobalState } from "../../state";
 import { IPagProps } from "../../interfaces/pagination";
+import Notiflix from "notiflix";
 import ArrowLeft from "../../assets/images/Arrow-pag-left.svg";
 import ArrowRight from "../../assets/images/Arrow-pag-right.svg";
 
@@ -9,19 +9,19 @@ export const Pagination = ({ getItem }: IPagProps) => {
   const [pageActive, setPageActive] = useState(1);
   const [allPageCount, setAllPageCount] = useState<number[]>([]);
   const [pageCount, setPageCount] = useState<number[]>([]);
-  const ctx = useThemeContext();
+  const allItems = useGlobalState("allItems");
 
   useEffect(() => {
     const arrForPageCount = [];
-    if (ctx.items) {
-      const getPageCount = ctx.items.length;
+    if (allPageCount.length === 0) {
+      const getPageCount = allItems[0].length / 5;
       for (let i = 1; i < getPageCount + 1; i += 1) {
         arrForPageCount.push(i);
       }
+      setAllPageCount(arrForPageCount);
+      setPageCount(arrForPageCount.slice(0, 5));
     }
-    setAllPageCount(arrForPageCount);
-    setPageCount(arrForPageCount.slice(0, 5));
-  }, [ctx.items]);
+  }, [allItems, allPageCount.length]);
 
   const setPage = (event: React.MouseEvent) => {
     const { ariaLabel, id } = event.currentTarget as HTMLButtonElement;
@@ -57,11 +57,11 @@ export const Pagination = ({ getItem }: IPagProps) => {
         setPageActive(+id);
         getItem(+id);
         if (+id === allPageCount.length) {
-          const arr = allPageCount.slice(
+          count = allPageCount.slice(
             allPageCount[allPageCount.length - 6],
             allPageCount[allPageCount.length]
           );
-          setPageCount(arr);
+          setPageCount(count);
         }
         break;
     }
@@ -103,7 +103,7 @@ export const Pagination = ({ getItem }: IPagProps) => {
           <>
             <li>
               {pageCount.includes(allPageCount[allPageCount.length - 3])
-                ? ctx.items!.length - 1
+                ? allItems[0].length - 1
                 : "..."}
             </li>
             <li
@@ -115,7 +115,7 @@ export const Pagination = ({ getItem }: IPagProps) => {
               }
               onClick={setPage}
             >
-              {ctx.items && ctx.items.length}
+              {allPageCount.length}
             </li>
           </>
         )}

@@ -13,7 +13,9 @@ export interface IDataItems {
   email: string;
   phone: string;
   salary: string;
-  createdAt: string
+  createdAt: string,
+  save: boolean,
+  rating: string
 }
 
 export interface IData {

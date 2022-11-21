@@ -15,7 +15,7 @@
 }
 
 .detailed__save-container {
-    @apply flex items-center;
+    @apply flex items-center sm:hidden;
 }
 
 .detailed__save-container > button {
@@ -34,21 +34,21 @@
     @apply ml-3;
 }
 
-.detailed__save-container {
-    @apply sm:hidden;
-}
-
 .detailed__save-container-sm {
     @apply flex items-center xl:hidden;
 }
 
-.detailed__save-container-sm > p {
-    @apply font-roboto text-lg text-[#5c637a] ml-2 tracking-[-0.5px];
-} 
-
-.detailed__save-container-sm>p:not(:last-child) {
-    @apply mr-6;
+.detailed__save-container-sm > button {
+    @apply flex items-center mr-9 font-nova font-normal text-base tracking-[-0.5px] text-lightGrey;
 }
+
+.detailed__save-container-sm>button>svg {
+    @apply mr-3;
+}
+
+.detailed__save-container-sm > p {
+    @apply font-roboto text-lg text-[#5c637a] ml-3 tracking-[-0.5px];
+} 
 
 .apply-button {
     @apply font-nova text-xs text-white font-semibold uppercase bg-button px-7 mt-10 mb-8 py-4 rounded-lg;
@@ -71,7 +71,7 @@
 }
 
 .detailed__sub-text-title-sm-container {
-    @apply flex items-center justify-between;
+    @apply flex items-center justify-between mt-3;
 }
 
 .detailed__titles {

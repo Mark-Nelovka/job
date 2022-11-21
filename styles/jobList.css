@@ -30,7 +30,7 @@
     @apply cursor-pointer sm:mt-4 xl:max-w-[712px];
 }
 
-.job-list__title-container > p:first-child {
+.job-list__title-container > a:first-child {
     @apply font-nova sm:font-normal sm:text-base sm:tracking-[-0.5625px] font-bold text-xl text-titleGrey tracking-[-0.625px] ml-0;
 }
 
@@ -97,6 +97,10 @@
 
 .job-list__save-icon {
     @apply cursor-pointer fill-none;
+}
+
+.job-list__save-icon--save {
+    @apply cursor-pointer fill-darkGrey;
 }
 
 .job-list__save-icon:hover {

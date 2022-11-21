@@ -1,68 +1,91 @@
 import { useEffect, useState } from "react";
 import { InferGetServerSidePropsType } from "next";
-import Error from "next/error";
+import { useRouter } from "next/router";
 import Image from "next/image";
-import { useThemeContext } from "../context/context";
+import { setGlobalState, useGlobalState } from "../state";
 import { IDataItems } from "../interfaces/dataItems";
-import getDateCreatePost from "../General/getDateCreatePost";
+import saveJob from "../General/saveJob";
+import getJobWithLocalStorage from "../General/localStorage";
+import changeCountPosts from "../General/changeCountPosts";
+import Map from "../сomponents/map";
+import Loader from "../сomponents/loader";
 import SaveIcon from "../assets/images/Save-icon.svg";
 import ShareIcon from "../assets/images/Shape-icon.svg";
 import ArrowBack from "../assets/images/Arrow-back-icon.svg";
-import { useRouter } from "next/router";
-import Map from "../сomponents/map";
-import Loader from "../сomponents/loader";
 
 export default function DetailedJob({
-  data,
+  result,
   errorCode,
-}: InferGetServerSidePropsType<typeof getServerSideProps>) {
+}: InferGetServerSidePropsType<typeof getStaticProps>) {
   const [item, setItem] = useState<IDataItems[]>([]);
-  const [error, setError] = useState(false);
   const [loading, setLoading] = useState(false);
-  const ctx = useThemeContext();
+
+  const allItems = useGlobalState("allItems");
+
   const location = useRouter();
+  const { id } = location.query;
 
   useEffect(() => {
     let findItem = null;
-    let setDateItem = null;
+    let findChangedItem = null;
 
-    errorCode === 200 ? setError(false) : setError(true);
     setLoading(true);
-    if (ctx.items && ctx.items!.length > 0) {
-      findItem = ctx.items!.find((el) => el.id === location.query.id);
-      setDateItem = getDateCreatePost([findItem!]);
-      setItem(setDateItem);
-      setLoading(false);
 
+    if (allItems[0].length > 0 && item.length === 0) {
+      findChangedItem = allItems[0].find((it) => it.id === id);
+      setItem([findChangedItem!]);
+      setLoading(false);
       return;
     }
-    if (errorCode === 200) {
-      findItem = data.find((el: IDataItems) => el.id === location.query.id);
-      if (findItem) {
-        setDateItem = getDateCreatePost([findItem!]);
-        setItem(setDateItem);
+
+    const itemsWithLocal: IDataItems[] = getJobWithLocalStorage();
+
+    if (itemsWithLocal) {
+      findChangedItem = itemsWithLocal.find((it) => it.id === id);
+
+      if (findChangedItem && item.length === 0) {
+        setGlobalState("allItems", itemsWithLocal);
+        setItem([findChangedItem]);
         setLoading(false);
         return;
       }
-      setError(true);
+    }
+    const data = changeCountPosts(result);
+    findItem = data.find((el: IDataItems) => el.id === id);
+    if (findItem && item.length === 0) {
+      setGlobalState("allItems", data);
+      setItem([findItem]);
+      setLoading(false);
       return;
     }
-  }, [ctx.items, data, errorCode, location.query.id]);
+    setLoading(false);
+  }, [result, errorCode, item, item.length, allItems, id]);
+
+  const changeSave = (event: React.MouseEvent) => {
+    const { id } = event.currentTarget as HTMLButtonElement;
+    const itemsWithSave = saveJob({ id, allItems });
+    const itemUpdate = itemsWithSave.find((el: IDataItems) => el.id === id);
+    setItem([itemUpdate!]);
+    setGlobalState("allItems", itemsWithSave);
+  };
 
   return (
     <>
-      {error && <Error statusCode={404} />}
+      {loading && <Loader />}
       <section>
-        {loading && !error && <Loader />}
         <div className="detailed-section-container">
           {item.length > 0 && (
             <div className="detailed__container">
               <div className="header-container">
                 <h2 className="detailed__header-title">Job Details</h2>
                 <div className="detailed__save-container">
-                  <button>
+                  <button onClick={changeSave} id={item[0].id}>
                     <SaveIcon
-                      className="job-list__save-icon"
+                      className={
+                        item[0].save
+                          ? "job-list__save-icon--save"
+                          : "job-list__save-icon"
+                      }
                       width="16"
                       height="20"
                       alt="save icon"
@@ -77,13 +100,19 @@ export default function DetailedJob({
               </div>
               <div className="detailed__additional-separator"></div>
               <div className="detailed__save-container-sm">
-                <SaveIcon
-                  className="job-list__save-icon"
-                  width="16"
-                  height="20"
-                  alt="save icon"
-                />
-                <p>Save to my list</p>
+                <button onClick={changeSave} id={item[0].id}>
+                  <SaveIcon
+                    className={
+                      item[0].save
+                        ? "job-list__save-icon--save"
+                        : "job-list__save-icon"
+                    }
+                    width="16"
+                    height="20"
+                    alt="save icon"
+                  />
+                  <p>Save to my list</p>
+                </button>
                 <ShareIcon width="18" height="20" alt="share icon" />
                 <p>Share</p>
               </div>
@@ -233,7 +262,7 @@ export default function DetailedJob({
   );
 }
 
-export async function getServerSideProps() {
+export async function getStaticProps() {
   const res = await fetch(
     "https://api.json-generator.com/templates/ZM1r0eic3XEy/data",
     {
@@ -243,9 +272,28 @@ export async function getServerSideProps() {
     }
   );
   const errorCode = res.ok ? 200 : res.status;
-  const data = await res.json();
+  const result = await res.json();
 
   return {
-    props: { errorCode, data },
+    props: { errorCode, result },
   };
 }
+
+export const getStaticPaths = async () => {
+  const res = await fetch(
+    "https://api.json-generator.com/templates/ZM1r0eic3XEy/data",
+    {
+      headers: {
+        Authorization: "Bearer wm3gg940gy0xek1ld98uaizhz83c6rh2sir9f9fu",
+      },
+    }
+  );
+  const data = await res.json();
+  const paths = data.map((item: any) => ({
+    params: { id: item.id.toString() },
+  }));
+  return {
+    paths,
+    fallback: false,
+  };
+};

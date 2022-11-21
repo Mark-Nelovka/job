@@ -1,9 +1,8 @@
 import { IDataItems } from "../interfaces/dataItems";
 
-export default function getDateCreatePost(data: IDataItems[]) {
-    const timeForSort: string[] = [];
+export default function getDateCreatePost (data: IDataItems[]) {
+  const timeForSort: string[] = [];
   const dateNow = new Date();
-   
   const itemsChanged = data.map((element) => {
         const formatingDate = new Date(element.createdAt).getTime().toString();
         timeForSort.push(formatingDate);
@@ -32,7 +31,6 @@ export default function getDateCreatePost(data: IDataItems[]) {
         }
 
         return { ...item, createdAt: "Posted today" };
-       });
-
+   });
       return sortedItems;
 }

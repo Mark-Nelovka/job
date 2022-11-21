@@ -1,3 +1,3 @@
 export interface IPagProps {
-  getItem: (id: number, ariaLabel?: string) => void;
+  getItem: (id: number) => void;
 }
